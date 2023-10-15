@@ -3,6 +3,7 @@ package single_line_print
 import (
 	"fmt"
 	"os"
+	"strconv"
 )
 
 // NewPrinter returns a new instance of printer
@@ -27,8 +28,13 @@ func (pt *printer) Print(s string) (n int, err error) {
 	if pt.noPrint {
 		pt.noPrint = false
 	} else {
-		for i := 0; i < pt.lineCount; i++ {
-			fmt.Fprintf(os.Stdout, esc("1A", "2K"))
+		transLeftAnsi := strconv.Itoa(pt.cursorOffset) + "D"
+		if pt.lineCount == 0 {
+			fmt.Fprint(os.Stdout, esc(transLeftAnsi, "0K"))
+		} else {
+			for i := 0; i < pt.lineCount; i++ {
+				fmt.Fprint(os.Stdout, esc("1A", "0K"))
+			}
 		}
 	}
 	asIns.countLine(s)

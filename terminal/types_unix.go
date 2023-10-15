@@ -15,3 +15,8 @@ var (
 func EnableVirtualTerminal() error {
 	return errors.New("EnableVirtualTerminal: this method is only defined under Windows System")
 }
+
+// DisableVirtualTerminal exists solely for compatibility with mode_windows.go
+func DisableVirtualTerminal() error {
+	return errors.New("EnableVirtualTerminal: this method is only defined under Windows System")
+}

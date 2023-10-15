@@ -11,12 +11,13 @@ import (
 
 // struct of printer and writer
 type ins struct {
-	lineCount int
-	termWidth int
-	closed    bool
-	noPrint   bool
-	mode      uint8
-	kind      string
+	cursorOffset int
+	lineCount    int
+	termWidth    int
+	closed       bool
+	noPrint      bool
+	mode         uint8
+	kind         string
 }
 
 type printer ins
@@ -64,19 +65,6 @@ func defaultInsWithFlag(k string, f uint8) ins {
 	}
 }
 
-// check package state
-func pkgCheck(k string) {
-	mtx.Lock()
-	defer mtx.Unlock()
-	if active {
-		panic(fmt.Sprintf("a %s is actived, please use Stop to close it before calling this method", kind))
-	} else {
-		kind = k
-		active = true
-	}
-	go listen()
-}
-
 // set instance mode
 func setMode(f uint8) {
 	if f&HideCursor == HideCursor {
@@ -115,18 +103,9 @@ func (i *ins) countLine(s string) {
 		r++
 	}
 	i.lineCount = l
+	i.cursorOffset = r
 }
 
-// Stop is the implement of Stop in print.go and writer.go
-func (i *ins) Stop() {
-	i.istCheck()
-	mtx.Lock()
-	defer mtx.Unlock()
-	active = false
-	i.closed = true
-	restoreTerminalMode(i.mode)
-	stopSignal <- true
-}
 func restoreTerminalMode(mode uint8) {
 	if mode&HideCursor == HideCursor {
 		os.Stdout.Write([]byte(esc("?25h")))
