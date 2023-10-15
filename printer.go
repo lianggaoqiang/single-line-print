@@ -28,7 +28,7 @@ func (pt *printer) Print(s string) (n int, err error) {
 		pt.noPrint = false
 	} else {
 		for i := 0; i < pt.lineCount; i++ {
-			fmt.Fprintf(os.Stdout, esc("1A", "0K"))
+			fmt.Fprintf(os.Stdout, esc("1A", "2K"))
 		}
 	}
 	asIns.countLine(s)
