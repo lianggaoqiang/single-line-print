@@ -18,11 +18,13 @@ func main() {
 
 	p.Reload()
 	for i := 0; i <= 100; i++ {
+		var suffix string
 		if i != 100 {
-			p.Print(fmt.Sprintf("> Downloading from remote: %d%%\n...\n", i))
+			suffix = "..."
 		} else {
-			p.Print(fmt.Sprintf("> Downloading from remote: %d%%\nDone!\n", i))
+			suffix = "Done!"
 		}
+		p.Print(fmt.Sprintf("> Downloading from remote: %d%%\n%s\n", i, suffix))
 		time.Sleep(time.Millisecond * 10)
 	}
 	p.Stop()

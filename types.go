@@ -3,8 +3,10 @@ package single_line_print
 import (
 	"fmt"
 	"github.com/lianggaoqiang/single-line-print/terminal"
+	tw "golang.org/x/text/width"
 	"os"
 	"os/signal"
+	"regexp"
 	"sync"
 	"syscall"
 )
@@ -88,21 +90,26 @@ func (i *ins) countLine(s string) {
 	if i.mode&ResizeReactively == ResizeReactively {
 		i.termWidth = int(terminal.GetSize().Width)
 	}
+
 	l, r := 0, 0
-	for _, c := range []byte(s) {
-		if c == '\n' {
-			l++
-			r = 0
-			continue
+	ns := regexp.MustCompile(`(?s)\n`).ReplaceAllString(s, "")
+	for _, c := range ns {
+		var w int
+		switch tw.LookupRune(c).Kind() {
+		case tw.EastAsianFullwidth, tw.EastAsianWide:
+			w = 2
+		case tw.EastAsianHalfwidth, tw.EastAsianNarrow,
+			tw.Neutral, tw.EastAsianAmbiguous:
+			w = 1
 		}
-		if r == i.termWidth {
+		if r+w > i.termWidth {
 			l++
-			r = 0
-			continue
+			r = w
+		} else {
+			r += w
 		}
-		r++
 	}
-	i.lineCount = l
+	i.lineCount = l + len(s) - len(ns)
 	i.cursorOffset = r
 }
 
