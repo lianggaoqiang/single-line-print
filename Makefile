@@ -22,4 +22,4 @@ build-darwin:
 
 .PHONY: clean
 clean:
-	rm -f ./test.exe
+	rm -f ./bin-*

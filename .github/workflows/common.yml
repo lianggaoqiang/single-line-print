@@ -1,0 +1,46 @@
+name: Build and Test
+
+on:
+  workflow_call:
+    inputs:
+      RUNNERS:
+        required: true
+        type: string
+      GO_VERSIONS:
+        required: true
+        type: string
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        go-version: [ "1.18", "1.19", "1.20", "1.21.x" ]
+        os: ${{ fromJSON(inputs.RUNNERS) }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup Go ${{ matrix.go-version }}
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Run build
+        run: make build
+
+
+  test:
+    strategy:
+      matrix:
+        go-version: [ "1.18", "1.19", "1.20", "1.21.x" ]
+        os: ${{ fromJSON(inputs.RUNNERS) }}
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Run test
+        run: make build-win
