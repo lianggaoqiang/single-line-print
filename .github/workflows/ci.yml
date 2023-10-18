@@ -18,18 +18,18 @@ jobs:
     uses: ./.github/workflows/common.yml
     with:
       RUNNERS: '["ubuntu-latest"]'
-      GO_VERSION: '["1.18", "1.19", "1.20", "1.21.x"]'
+      GO_VERSIONS: '["1.18", "1.19", "1.20", "1.21.x"]'
 
   Windows:
     if: ${{ inputs.runner == 'All Runners' && startsWith(github.ref, 'refs/tags/') }}
     uses: ./.github/workflows/common.yml
     with:
       RUNNERS: '["windows-latest"]'
-      GO_VERSION: '["1.18", "1.21.x"]'
+      GO_VERSIONS: '["1.18", "1.21.x"]'
 
   Macos:
     if: ${{ inputs.runner == 'All Runners' && startsWith(github.ref, 'refs/tags/') }}
     uses: ./.github/workflows/common.yml
     with:
       RUNNERS: '["macos-latest"]'
-      GO_VERSION: '["1.18", "1.21.x"]'
+      GO_VERSIONS: '["1.18", "1.21.x"]'
