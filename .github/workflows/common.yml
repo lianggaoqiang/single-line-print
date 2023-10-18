@@ -32,6 +32,9 @@ jobs:
 
 
   test:
+    if: ${{ success() }}
+    needs: build
+
     strategy:
       matrix:
         go-version: ${{ fromJSON(inputs.GO_VERSIONS) }}
