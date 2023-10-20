@@ -4,6 +4,7 @@
 package terminal
 
 import (
+	"flag"
 	"os"
 	"runtime"
 	"syscall"
@@ -12,6 +13,12 @@ import (
 
 // GetSize could get the size of the terminal window
 func GetSize() (windowSize size) {
+	// if in testing, return virtual size directly
+	flag.Parse()
+	if *testEnv == "GithubWorkflow" {
+		return size{110, 30}
+	}
+
 	var (
 		f   *os.File
 		err error

@@ -1,6 +1,7 @@
 package terminal
 
 import (
+	"flag"
 	"os"
 )
 
@@ -19,6 +20,7 @@ type modeStage struct {
 var (
 	oriModeState = modeStage{}    // instance of modeStage
 	scanSignal   = make(chan int) // signal of scanning from terminal, finish scanning when it is 2
+	testEnv      = flag.String("testEnv", "", "the environment of testing")
 )
 
 // When ChangeTerminalInputMode is called, start scanning to disable input

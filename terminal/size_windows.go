@@ -10,6 +10,12 @@ import (
 
 // GetSize could get the size of the terminal window
 func GetSize() (windowSize size) {
+	// if in testing, return virtual size directly
+	flag.Parse()
+	if *testEnv == "GithubWorkflow" {
+		return size{110, 30}
+	}
+
 	// in Windows system, another approach to acquire a handle for the terminal file
 	// is utilizing os.OpenFile("CONOUT$") or os.OpenFile("CONIN$")
 	f := os.Stdout
