@@ -155,11 +155,6 @@ func emptyFile() {
 	createFile()
 }
 
-// check one Chinese line that without line break
-func test() {
-
-}
-
 // read the "output" file
 func readFile() string {
 	createFile()

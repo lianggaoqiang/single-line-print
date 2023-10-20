@@ -4,6 +4,7 @@
 package terminal
 
 import (
+	"flag"
 	"os"
 	"unsafe"
 )
