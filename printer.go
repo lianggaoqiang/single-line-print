@@ -28,9 +28,11 @@ func (pt *printer) Print(s string) (n int, err error) {
 	if pt.noPrint {
 		pt.noPrint = false
 	} else {
-		transLeftAnsi := strconv.Itoa(pt.cursorOffset) + "D"
+		if pt.cursorOffset > 0 {
+			fmt.Fprint(os.Stdout, esc(strconv.Itoa(pt.cursorOffset)+"D"))
+		}
 		if pt.lineCount == 0 {
-			fmt.Fprint(os.Stdout, esc(transLeftAnsi, "0K"))
+			fmt.Fprint(os.Stdout, esc("0K"))
 		} else {
 			for i := 0; i < pt.lineCount; i++ {
 				fmt.Fprint(os.Stdout, esc("1A", "0K"))

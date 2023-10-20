@@ -3,6 +3,7 @@ package single_line_print
 import (
 	"fmt"
 	"github.com/lianggaoqiang/single-line-print/terminal"
+	"github.com/lianggaoqiang/single-line-print/util"
 	tw "golang.org/x/text/width"
 	"os"
 	"os/signal"
@@ -77,14 +78,6 @@ func setMode(f uint8) {
 	}
 }
 
-// Generate multiple ANSI control characters
-func esc(suffix ...string) (ansis string) {
-	for _, s := range suffix {
-		ansis += fmt.Sprintf("%c[%s", 033, s)
-	}
-	return
-}
-
 // count the number of message lines to be printed in the terminal
 func (i *ins) countLine(s string) {
 	if i.mode&ResizeReactively == ResizeReactively {
@@ -93,7 +86,11 @@ func (i *ins) countLine(s string) {
 
 	l, r := 0, 0
 	ns := regexp.MustCompile(`(?s)\n`).ReplaceAllString(s, "")
-	for _, c := range ns {
+	for _, c := range s {
+		if c == '\n' {
+			r = 0
+			continue
+		}
 		var w int
 		switch tw.LookupRune(c).Kind() {
 		case tw.EastAsianFullwidth, tw.EastAsianWide:
@@ -151,4 +148,9 @@ func listen() {
 	case <-stopSignal:
 		return
 	}
+}
+
+// the reference of util.ESC
+func esc(suffix ...string) (ansis string) {
+	return util.ESC(suffix...)
 }

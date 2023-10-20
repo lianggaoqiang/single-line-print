@@ -2,7 +2,7 @@ package main
 
 import slp "github.com/lianggaoqiang/single-line-print"
 
-// This file is used for testing the build process of this program
+// This file is used for testing the build process of this package
 func main() {
 	// normal printer
 	p := slp.NewPrinter()
