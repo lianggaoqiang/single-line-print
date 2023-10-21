@@ -133,6 +133,7 @@ func TestOneChineseLineWithoutWrap(t *testing.T) {
 // create the "output" file
 func createFile() {
 	var err error
+	file.Close()
 	file, err = os.OpenFile(filePath, os.O_RDWR|os.O_CREATE, 0600)
 	if err != nil {
 		panic("can not create file: " + err.Error())
@@ -142,6 +143,7 @@ func createFile() {
 
 // remove the "output" file
 func removeFile() {
+	file.Close()
 	err := os.Remove(filePath)
 	if err != nil {
 		panic("can not remove file: " + err.Error())
