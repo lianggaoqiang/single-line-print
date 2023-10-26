@@ -18,7 +18,7 @@ jobs:
     uses: ./.github/workflows/common.yml
     with:
       RUNNERS: '["ubuntu-latest"]'
-      GO_VERSIONS: '["1.18", "1.19", "1.20", "1.21.x"]'
+      GO_VERSIONS: '["1.18", "1.21.x"]'
 
   Windows:
     if: ${{ inputs.runner == 'All Runners' }}
