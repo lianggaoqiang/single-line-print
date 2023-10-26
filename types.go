@@ -85,6 +85,7 @@ func (i *ins) countLine(s string) {
 	}
 
 	l, r := 0, 0
+	s = regexp.MustCompile(string(033)+`\[\d+?m`).ReplaceAllString(s, "")
 	ns := regexp.MustCompile(`(?s)\n`).ReplaceAllString(s, "")
 	for _, c := range s {
 		if c == '\n' {
