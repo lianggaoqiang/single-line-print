@@ -21,14 +21,14 @@ jobs:
       GO_VERSIONS: '["1.18", "1.19", "1.20", "1.21.x"]'
 
   Windows:
-    if: ${{ inputs.runner == 'All Runners' || startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ inputs.runner == 'All Runners' }}
     uses: ./.github/workflows/common.yml
     with:
       RUNNERS: '["windows-latest"]'
       GO_VERSIONS: '["1.18", "1.21.x"]'
 
   Macos:
-    if: ${{ inputs.runner == 'All Runners' || startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ inputs.runner == 'All Runners' }}
     uses: ./.github/workflows/common.yml
     with:
       RUNNERS: '["macos-latest"]'
