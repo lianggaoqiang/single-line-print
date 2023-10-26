@@ -25,7 +25,7 @@ func main() {
 
 ```
 
-<img src="https://github.com/lianggaoqiang/single-line-print/blob/main/doc/simple-example.gif" style="width:40%" />
+<img src="https://github.com/lianggaoqiang/single-line-print/blob/main/doc/simple-example.gif" style="width:70%" />
 
 <br>
 
