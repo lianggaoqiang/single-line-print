@@ -93,5 +93,7 @@ func main() {
 go get github.com/lianggaoqiang/single-line-print
 ```
 
+<br>
+
 ## Thanks
 This project is tested with BrowserStack
