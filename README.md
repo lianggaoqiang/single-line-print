@@ -92,3 +92,6 @@ func main() {
 ```shell
 go get github.com/lianggaoqiang/single-line-print
 ```
+
+## Thanks
+This project is tested with BrowserStack
